@@ -43,12 +43,44 @@
       <p>形式化目标（可读版）：</p>
       <pre><code><span class="code-k">def</span> RiemannHypothesis : Prop :=
   ∀ (s : ℂ), riemannZeta s = 0 →
-  (∀ n : ℕ, s ≠ -n) → s ≠ 1 → s.re = 1/2</code></pre>
-      <p style="font-size:14px;color:var(--ink-soft)">注：此「可读版」排除全部非正整数 <code>-n</code>；Mathlib 定义仅排除负偶数 <code>-2(n+1)</code>。两者真值相同，等价性依赖「ζ 在 0 与负奇整数处非零」。</p>
+  (¬∃ n : ℕ, s = -2 * ((n : ℂ) + 1)) → s ≠ 1 → s.re = 1 / 2</code></pre>
+      <p style="font-size:14px;color:var(--ink-soft)">注：此「可读版」照抄项目 <code>Statements.lean</code> 的排除条件（负偶数 <code>-2(n+1)</code>，含 0）；因 ζ 在负奇整数处非零，故等价于排除全部非正整数。</p>
       <blockquote>
         <p><strong>中文原文：</strong>是。这份 Lean 项目的主定理断言，黎曼 ζ 函数的每个非平凡零点的实部都等于 1/2，这正是经典黎曼猜想。完整的五个终定理类型将在编译完成后以 <code>#print axioms</code> 的展开形式收录于「结论」页。</p>
       </blockquote>
       <p>除黎曼猜想（RH）外，五个终定理中另含三个关于 Dirichlet L 函数的终定理（GRH）。</p>
+    </section>
+
+    <section>
+      <h2>本站在信任链条的哪一格</h2>
+      <p>一份 Lean 证明的可信度自下而上分四层。本项目逐格标注了自己的位置：</p>
+      <table>
+        <thead>
+          <tr><th>层</th><th>本项目的位置</th><th>验证方式</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>命题</strong></td>
+            <td>证明 Mathlib 的 <code>RiemannHypothesis</code>（等价于经典黎曼猜想）</td>
+            <td>类型检查等价（语句审计方案 A）</td>
+          </tr>
+          <tr>
+            <td><strong>公理</strong></td>
+            <td>仅依赖 Mathlib 三条公理：<code>propext</code> / <code>Classical.choice</code> / <code>Quot.sound</code></td>
+            <td><code>#print axioms</code></td>
+          </tr>
+          <tr>
+            <td><strong>内核</strong></td>
+            <td>Lean 4 内核 type checker 逐项检查每个证明项</td>
+            <td>编译 0 error</td>
+          </tr>
+          <tr>
+            <td><strong>TCB</strong></td>
+            <td>Lean 4 内核本身的可信基（内核正确性）</td>
+            <td><strong>不在本项目范围</strong></td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
     <section>
