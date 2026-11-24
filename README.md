@@ -10,7 +10,7 @@
 - Original download: https://alpo.ge/lean.tar.gz.part01 … https://alpo.ge/lean.tar.gz.part14
 - Merged archive in this repo's [Releases](https://github.com/CocoSgt/riemann-hypothesis-lean/releases/tag/v2026-11-20)
 
-**Status.** As of mirroring (2026-11-20), no independent build or review of this code has been published. Treat it as a claimed proof until it has been compiled and checked.
+**Status.** The mirror was created on 2026-11-20. Since then, Andrew Sutherland's report and the community verification statements have been published, and an independent build and review are now in progress on this fork (see the `verification/` directory and the `gh-pages` branch). Treat the proof as claimed until it has been compiled and checked.
 
 ---
 
@@ -98,7 +98,7 @@ shasum -a 256 lean.tar.gz   # same hash as above
 tar -xzf lean.tar.gz && cd lean
 ```
 
-The `src/` tree in this repository is byte-for-byte the content of that archive; this README, `.gitignore` and nothing else were added.
+The `src/` tree in this repository is byte-for-byte the content of that archive and is never modified on any branch. This fork's `custom` branch additionally contains `verification/` — third-party verification materials that do not represent Alpöge's position.
 
 ## Building
 
