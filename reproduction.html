@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>独立复现 · RH / VERIFY</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand"><a href="index.html">RH <span class="sep">/</span> VERIFY<span class="en">黎曼猜想 · Lean 形式化独立复现</span></a></div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="reproduction.html" class="active">独立复现</a>
+        <a href="structure.html">结构消化</a>
+        <a href="machine.html">机器遥测</a>
+        <a href="results.html">结论</a>
+        <a href="crosscheck.html">双机交叉</a>
+        <a href="log.html">验证日志</a>
+        <a href="downloads.html">下载</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge-row"><span class="badge accent">方法论</span></div>
+      <h1>独立复现流程</h1>
+      <p class="sub">复现 Levent Alpöge 的 riemann-hypothesis-lean 项目编译验证，采用「受控并行 + 依赖分层」策略，规避单机内存瓶颈。</p>
+    </section>
+
+    <section>
+      <h2>六步流水线</h2>
+      <table>
+        <tr><th class="num">#</th><th>步骤</th><th>内容</th><th>状态</th></tr>
+        <tr><td class="num">1</td><td>下载源码</td><td>固定源码目标（175,187 模块），保留原始源码</td><td>✅</td></tr>
+        <tr><td class="num">2</td><td>检源</td><td>source-scan：扫描 sorry/admit/axiom/unsafe/native_decide/run_cmd</td><td>✅ 干净</td></tr>
+        <tr><td class="num">3</td><td>准备 Lean</td><td>Lean 4.33.1 + mathlib（pinned rev）</td><td>✅</td></tr>
+        <tr><td class="num">4</td><td>编译</td><td>203 层逐层编译，受控并行（jobs=8–16）</td><td>🔄 87.26%</td></tr>
+        <tr><td class="num">5</td><td>审计证明</td><td><code>#print axioms</code> 公理检查 + 语句审计</td><td>⏳ 待编译完</td></tr>
+        <tr><td class="num">6</td><td>结果</td><td>axiom 三条定论 + 双机交叉比对</td><td>⏳ 待编译完</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>双机分工</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value small">IP47</div>
+          <div class="stat-label">河源 · 16核/128GiB</div>
+          <div class="stat-note">主编译机（203 层全量编译）</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value small">IP121</div>
+          <div class="stat-label">杭州 · 旧机</div>
+          <div class="stat-note">交叉复核 + 结构测绘</div>
+        </div>
+      </div>
+      <h3>为什么需要两台机器</h3>
+      <ul>
+        <li><strong>隔离性</strong>：编译产物在第二台独立机器上重新生成并比对 olean 哈希，排除单机系统性偏差。</li>
+        <li><strong>分工</strong>：IP47 专注编译（重 IO/内存），IP121 并行跑依赖图分析（纯 Python，轻量），互不争抢资源。</li>
+        <li><strong>独立性</strong>：两台机器独立配置，交叉结果作为「一致性证据」。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>关键工程决策</h2>
+      <table>
+        <tr><th>问题</th><th>结论</th></tr>
+        <tr><td>内存瓶颈</td><td>单文件峰值 ~6.5 GB，并行叠加才爆内存；128 GiB 可安全并行 12–16 路</td></tr>
+        <tr><td>并行控制</td><td>Lake 5.0 已移除 <code>-j</code>；用 <code>lake -K jobs=N</code> 控文件级并行，勿设 <code>LEAN_NUM_THREADS=1</code>（会压成串行）</td></tr>
+        <tr><td>分层策略</td><td>按 import 依赖 Kahn 拓扑分 203 层；重文件层降并行（jobs=8）防内存叠加</td></tr>
+        <tr><td>硬盘</td><td>全量 olean ~1.2 TiB，需 ≥1.5 TiB 数据盘</td></tr>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
+    <p style="margin-top:8px">RH / VERIFY · 独立复现 · 参考 <a href="https://proveriemannhypothesis.github.io/">proveriemannhypothesis.github.io</a></p>
+  </footer>
+</body>
+</html>

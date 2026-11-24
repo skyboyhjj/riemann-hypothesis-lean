@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>结论 · RH / VERIFY</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand"><a href="index.html">RH <span class="sep">/</span> VERIFY<span class="en">黎曼猜想 · Lean 形式化独立复现</span></a></div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="reproduction.html">独立复现</a>
+        <a href="structure.html">结构消化</a>
+        <a href="machine.html">机器遥测</a>
+        <a href="results.html" class="active">结论</a>
+        <a href="crosscheck.html">双机交叉</a>
+        <a href="log.html">验证日志</a>
+        <a href="downloads.html">下载</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge-row"><span class="badge accent">结果</span><span class="badge ok">部分已齐</span></div>
+      <h1>验证结论</h1>
+      <p class="sub">定论标准：<code>#print axioms riemannHypothesis</code> 显示零额外公理依赖，仅 <code>propext</code> / <code>Classical.choice</code> / <code>Quot.sound</code>。</p>
+    </section>
+
+    <section>
+      <h2>source-scan（作弊检查）</h2>
+      <blockquote class="ok">
+        <p><strong>结论：源码干净。</strong> 无任何 <code>sorry</code> / <code>admit</code> / <code>axiom</code> / <code>unsafe</code> / <code>native_decide</code>。</p>
+      </blockquote>
+      <table>
+        <tr><th>危险 token</th><th class="num">命中</th><th>判定</th></tr>
+        <tr><td><code>sorry</code></td><td class="num">0</td><td>✅ 无未完成证明</td></tr>
+        <tr><td><code>admit</code></td><td class="num">0</td><td>✅ 无未完成证明</td></tr>
+        <tr><td><code>axiom</code></td><td class="num">0</td><td>✅ src 内零新增公理</td></tr>
+        <tr><td><code>unsafe</code></td><td class="num">0</td><td>✅ 无 unsafe 代码</td></tr>
+        <tr><td><code>native_decide</code></td><td class="num">0</td><td>✅ 无信任计算</td></tr>
+        <tr><td><code>run_cmd</code></td><td class="num">5</td><td>✅ 全部良性（linter denyList）</td></tr>
+      </table>
+      <p style="color:var(--ink-soft);font-size:14px">5 处 <code>run_cmd</code> 均在 <code>BuildAid/D1–D5.lean</code>，为 <code>LibrarySuggestions.nameDenyListExt.addEntry</code> 的 linter 配置，不影响证明、不引入公理。</p>
+    </section>
+
+    <section>
+      <h2>公理依赖定论（方案 2）</h2>
+      <p>最终以 <code>#print axioms riemannHypothesis</code> 精确核对，期望三条且仅三条：</p>
+      <pre><code><span class="code-c">-- 预期结果（编译完成后正式确认）</span>
+propext
+Classical.choice
+Quot.sound</code></pre>
+      <blockquote class="warn">
+        <p><strong>当前状态：</strong>此结论基于「接受 Sutherland 已公开的完整验证结论 + 本机零错误旁证」。编译完成后将执行 <code>#print axioms</code> 回填实测结果。</p>
+      </blockquote>
+    </section>
+
+    <section>
+      <h2>外部独立验证（引用）</h2>
+      <p>Andrew Sutherland（MIT）报告：两个独立证明检查器 <strong>nanoda</strong> 与 <strong>con-leche</strong> 接受完整导出证明；并用 con-leche 对照独立陈述检查了全部五个终定理。</p>
+      <p style="font-size:14px;color:var(--ink-soft)">详见 <a href="https://math.mit.edu/~drew/grh/">math.mit.edu/~drew/grh</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
+    <p style="margin-top:8px">RH / VERIFY · 结论 · 参考 <a href="https://proveriemannhypothesis.github.io/">proveriemannhypothesis.github.io</a></p>
+  </footer>
+</body>
+</html>

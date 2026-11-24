@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>结构消化 · RH / VERIFY</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand"><a href="index.html">RH <span class="sep">/</span> VERIFY<span class="en">黎曼猜想 · Lean 形式化独立复现</span></a></div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="reproduction.html">独立复现</a>
+        <a href="structure.html" class="active">结构消化</a>
+        <a href="machine.html">机器遥测</a>
+        <a href="results.html">结论</a>
+        <a href="crosscheck.html">双机交叉</a>
+        <a href="log.html">验证日志</a>
+        <a href="downloads.html">下载</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge-row"><span class="badge accent">依赖图测绘</span><span class="badge ok">数据已齐</span></div>
+      <h1>依赖图结构消化</h1>
+      <p class="sub">验证之外，额外解析全部 175,187 个模块的 import 依赖，构建 DAG 并求 <code>Main</code> 的传递闭包，测绘论证的「骨架」与「算力」分布。</p>
+    </section>
+
+    <section>
+      <h2>核心发现：闭包 = 99.76%</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value">174,764</div>
+          <div class="stat-label">Main 传递闭包模块数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">99.76%</div>
+          <div class="stat-label">占项目比例</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">423</div>
+          <div class="stat-label">未被依赖（死模块）</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">95 / 95</div>
+          <div class="stat-label">重文件命中闭包</div>
+        </div>
+      </div>
+      <blockquote class="warn">
+        <p><strong>重要事实澄清：</strong><code>Main</code> 几乎依赖项目的每一个模块（99.76%），这份形式化<strong>没有冗余</strong>——不存在「砍掉大半只读核心」的捷径。消化必须靠结构测绘与骨架提取，而非范围裁剪。</p>
+      </blockquote>
+    </section>
+
+    <section>
+      <h2>依赖图拓扑</h2>
+      <table>
+        <tr><th>指标</th><th class="num">值</th></tr>
+        <tr><td>总模块数</td><td class="num">175,187</td></tr>
+        <tr><td>src 内部依赖边</td><td class="num">752,647</td></tr>
+        <tr><td>总层数（level 0–202）</td><td class="num">203</td></tr>
+        <tr><td>循环依赖</td><td class="num">0</td></tr>
+        <tr><td>Main（最终定理）</td><td class="num">level 202</td></tr>
+        <tr><td>Statements（最底层）</td><td class="num">level 0</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>枢纽模块排名（fan-in Top 5）</h2>
+      <table>
+        <tr><th class="num">fan-in</th><th>模块</th></tr>
+        <tr><td class="num">3085</td><td><code>Development.AbelianVarietyTheory.Definitions.Divisors.CTSmallCone</code></td></tr>
+        <tr><td class="num">2972</td><td><code>Development.AbelianVarietyTheory.Definitions.Divisors.SiegelWeilAnisotropicHermitian</code></td></tr>
+        <tr><td class="num">2518</td><td><code>Development.AbelianVarietyTheory.Definitions.Divisors.DiscreteSeriesHermitianUnique</code></td></tr>
+        <tr><td class="num">2387</td><td><code>ReciprocityTheory.ReductiveGroups...ToroidalCompactification.UniformisationConclusion</code></td></tr>
+        <tr><td class="num">2284</td><td><code>ReciprocityTheory.ReductiveGroups...ExtensionDescent.UnifUniqSt</code></td></tr>
+      </table>
+      <p style="color:var(--ink-soft);font-size:14px">枢纽集中在 <code>Development.AbelianVarietyTheory</code> 与 <code>ReciprocityTheory</code> 结构层，是理解论证骨架的入口。</p>
+    </section>
+
+    <section>
+      <h2>反直觉洞察：重文件是「计算叶子」，不是枢纽</h2>
+      <p>95 个重文件（&gt;100s）的 fan-in 都很低——最高仅 <strong>187</strong>，多数个位数。这意味着：</p>
+      <ul>
+        <li><strong>结构（枢纽）在浅层</strong>：高 fan-in 的轻量模块被大量引用，是逻辑骨架。</li>
+        <li><strong>算力（重文件）在末端</strong>：重文件做大量展开/数值估计，由少数中间模块引用后层层汇总到 Main。</li>
+        <li><strong>读法不同</strong>：骨架读枢纽（高 fan-in），算力读重文件（低 fan-in），双轨交替。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
+    <p style="margin-top:8px">RH / VERIFY · 结构消化 · 参考 <a href="https://proveriemannhypothesis.github.io/">proveriemannhypothesis.github.io</a></p>
+  </footer>
+</body>
+</html>

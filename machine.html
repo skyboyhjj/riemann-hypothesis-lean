@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>机器遥测 · RH / VERIFY</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand"><a href="index.html">RH <span class="sep">/</span> VERIFY<span class="en">黎曼猜想 · Lean 形式化独立复现</span></a></div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="reproduction.html">独立复现</a>
+        <a href="structure.html">结构消化</a>
+        <a href="machine.html" class="active">机器遥测</a>
+        <a href="results.html">结论</a>
+        <a href="crosscheck.html">双机交叉</a>
+        <a href="log.html">验证日志</a>
+        <a href="downloads.html">下载</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge-row"><span class="badge accent">硬件</span><span class="badge ok">数据已齐</span></div>
+      <h1>验证机器</h1>
+      <p class="sub">主编译机为阿里云华南 2（河源）按量实例，数据盘挂载 /data 承载全量 olean 产物。</p>
+    </section>
+
+    <section>
+      <h2>主编译机（IP47）</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value">16</div>
+          <div class="stat-label">vCPU · Intel Xeon Platinum</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">128 GiB</div>
+          <div class="stat-label">内存（123 GiB 可用）</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">1.5 TiB</div>
+          <div class="stat-label">数据盘（/data）</div>
+        </div>
+      </div>
+      <table>
+        <tr><th>项</th><th>值</th></tr>
+        <tr><td>实例</td><td>ecs.u1-c1m8.4xlarge（通用型 u1）</td></tr>
+        <tr><td>区域</td><td>华南 2（河源）</td></tr>
+        <tr><td>操作系统</td><td>Ubuntu 24.04.5 LTS</td></tr>
+        <tr><td>Lean</td><td>4.33.1（commit <code>819816b2e0a3bf405af45ae5c7af2491d8f5bee6</code>）</td></tr>
+        <tr><td>Lake</td><td>5.0.0-src+819816b</td></tr>
+        <tr><td>mathlib rev</td><td><code>0df444a360eaa60ab8c11dca51a86af692955474</code></td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>交叉复核机（IP121）</h2>
+      <table>
+        <tr><th>项</th><th>值</th></tr>
+        <tr><td>区域</td><td>华东（杭州）· 旧机</td></tr>
+        <tr><td>内存</td><td>14 GiB（原受内存瓶颈，故升级到 IP47）</td></tr>
+        <tr><td>用途</td><td>依赖图结构测绘（closure.py）+ 双机 olean 哈希交叉比对</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>内存预算依据</h2>
+      <table>
+        <tr><th>指标</th><th class="num">值</th></tr>
+        <tr><td>单文件内存峰值（重文件 elaborate）</td><td class="num">~6.5 GB</td></tr>
+        <tr><td>轻模块内存（level0 反推）</td><td class="num">~0.8 GB</td></tr>
+        <tr><td>level0 十六路并行峰值</td><td class="num">~13 GB</td></tr>
+        <tr><td>安全并行上限（128 GiB）</td><td class="num">12–16 路</td></tr>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
+    <p style="margin-top:8px">RH / VERIFY · 机器遥测 · 参考 <a href="https://proveriemannhypothesis.github.io/">proveriemannhypothesis.github.io</a></p>
+  </footer>
+</body>
+</html>

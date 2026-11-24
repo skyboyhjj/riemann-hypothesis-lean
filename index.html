@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RH / VERIFY · 独立复现</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand"><a href="index.html">RH <span class="sep">/</span> VERIFY<span class="en">黎曼猜想 · Lean 形式化独立复现</span></a></div>
+      <nav class="site-nav">
+        <a href="index.html" class="active">首页</a>
+        <a href="reproduction.html">独立复现</a>
+        <a href="structure.html">结构消化</a>
+        <a href="machine.html">机器遥测</a>
+        <a href="results.html">结论</a>
+        <a href="crosscheck.html">双机交叉</a>
+        <a href="log.html">验证日志</a>
+        <a href="downloads.html">下载</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge-row">
+        <span class="badge accent">独立复现</span>
+        <span class="badge ok">双机交叉</span>
+        <span class="badge">结构消化</span>
+      </div>
+      <h1>在 Lean 中验证黎曼猜想形式化</h1>
+      <p class="sub">
+        本项目主定理断言：黎曼 ζ 函数的每个非平凡零点实部都等于 1/2，
+        <strong>这正是经典黎曼猜想</strong>。我们在一台 16 核 / 128 GiB 的中等配置服务器上，
+        用两台独立机器交叉验证其编译与产物一致性，并额外做了依赖图结构测绘。
+      </p>
+    </section>
+
+    <section>
+      <h2>主定理陈述</h2>
+      <p>形式化目标（可读版）：</p>
+      <pre><code><span class="code-k">def</span> RiemannHypothesis : Prop :=
+  ∀ (s : Complex), riemannZeta s = 0 →
+  (∀ n : Nat, s ≠ -n) → s ≠ 1 → s.re = 1/2</code></pre>
+      <blockquote>
+        <p><strong>中文原文：</strong>是。这份 Lean 项目的主定理断言，黎曼 ζ 函数的每个非平凡零点的实部都等于 1/2，这正是经典黎曼猜想。完整的五个终定理类型将在编译完成后以 <code>#print axioms</code> 的展开形式收录于「结论」页。</p>
+      </blockquote>
+    </section>
+
+    <section>
+      <h2>关键数字</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value">175,187</div>
+          <div class="stat-label">项目模块总数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">203</div>
+          <div class="stat-label">依赖分层（level 0–202）</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">0</div>
+          <div class="stat-label">循环依赖</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">99.76%</div>
+          <div class="stat-label">Main 传递闭包占比</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value small">0</div>
+          <div class="stat-label">sorry / admit / axiom / unsafe</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>验证状态</h2>
+      <p><strong>全量编译进行中</strong>：</p>
+      <div class="progress"><span style="width:87.26%"></span></div>
+      <p style="margin-top:8px">
+        <strong>87.26%</strong>（147,689 / 169,260 层内模块，level 95 / 202）· 0 错误
+      </p>
+      <blockquote class="warn">
+        <p><strong>说明：</strong>本页为「阶段 0」骨架，<code>结论 / 日志 / 双机交叉 / 下载</code> 四项数据依赖编译完成（预计剩余 ~8 小时），完成后回填。</p>
+      </blockquote>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
+    <p style="margin-top:8px">RH / VERIFY · 黎曼猜想 Lean 形式化独立复现 · 参考 <a href="https://proveriemannhypothesis.github.io/">proveriemannhypothesis.github.io</a></p>
+  </footer>
+</body>
+</html>
