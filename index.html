@@ -42,9 +42,9 @@
       <h2>主定理陈述</h2>
       <p>形式化目标（可读版）：</p>
       <pre><code><span class="code-k">def</span> RiemannHypothesis : Prop :=
-  ∀ (s : Complex), riemannZeta s = 0 →
-  (∀ n : Nat, s ≠ -n) → s ≠ 1 → s.re = 1/2</code></pre>
-      <p style="font-size:14px;color:var(--ink-soft)">注：此「可读版」排除全部非正整数 $-n$；Mathlib 定义仅排除负偶数 $-2(n+1)$。两者真值相同，等价性依赖「ζ 在 0 与负奇整数处非零」。</p>
+  ∀ (s : ℂ), riemannZeta s = 0 →
+  (∀ n : ℕ, s ≠ -n) → s ≠ 1 → s.re = 1/2</code></pre>
+      <p style="font-size:14px;color:var(--ink-soft)">注：此「可读版」排除全部非正整数 <code>-n</code>；Mathlib 定义仅排除负偶数 <code>-2(n+1)</code>。两者真值相同，等价性依赖「ζ 在 0 与负奇整数处非零」。</p>
       <blockquote>
         <p><strong>中文原文：</strong>是。这份 Lean 项目的主定理断言，黎曼 ζ 函数的每个非平凡零点的实部都等于 1/2，这正是经典黎曼猜想。完整的五个终定理类型将在编译完成后以 <code>#print axioms</code> 的展开形式收录于「结论」页。</p>
       </blockquote>
