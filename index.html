@@ -61,18 +61,23 @@
         <tbody>
           <tr>
             <td><strong>命题</strong></td>
-            <td>证明 Mathlib 的 <code>RiemannHypothesis</code>（等价于经典黎曼猜想）</td>
+            <td>证明 Mathlib 的 <code>RiemannHypothesis</code>（与教科书 RH 的等价由 Mathlib 定义保证，非本项目所验）</td>
             <td>类型检查等价（语句审计方案 A）</td>
           </tr>
           <tr>
             <td><strong>公理</strong></td>
             <td>仅依赖 Mathlib 三条公理：<code>propext</code> / <code>Classical.choice</code> / <code>Quot.sound</code></td>
-            <td><code>#print axioms</code></td>
+            <td><code>#print axioms</code>（待实测）</td>
           </tr>
           <tr>
             <td><strong>内核</strong></td>
-            <td>Lean 4 内核 type checker 逐项检查每个证明项</td>
+            <td>Lean 4 内核逐项检查每个证明项的类型正确性</td>
             <td>编译 0 error</td>
+          </tr>
+          <tr>
+            <td><strong>定义</strong></td>
+            <td>证明内部的定义是否名副其实（如 <code>anyGeometry</code> 恒真，内核不检查）</td>
+            <td><strong>未做</strong>（需追证明项）</td>
           </tr>
           <tr>
             <td><strong>TCB</strong></td>
