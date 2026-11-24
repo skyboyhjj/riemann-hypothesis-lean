@@ -66,6 +66,24 @@
     </section>
 
     <section>
+      <h2>语句审计（所证即 RH）</h2>
+      <blockquote class="ok">
+        <p><strong>所证即 RH 成立。</strong> <code>RiemannHypothesis</code>（Mathlib）与 <code>RiemannZetaZerosOnLine</code>（Statements）定义逐字一致，均展开为经典黎曼猜想。</p>
+      </blockquote>
+      <pre><code><span class="code-c">-- 展开定义（Mathlib 与 Statements 逐字一致）</span>
+def RiemannHypothesis : Prop :=
+  ∀ (s : ℂ), riemannZeta s = 0 → (¬∃ n, s = -2 * (↑n + 1)) → s ≠ 1 → s.re = 1 / 2</code></pre>
+      <table>
+        <tr><th>定理</th><th>类型</th><th>性质</th></tr>
+        <tr><td><code>riemannHypothesis</code></td><td><code>RiemannHypothesis</code>（Mathlib）</td><td>经典 RH</td></tr>
+        <tr><td><code>riemannZeta_eq_zero_re</code></td><td><code>RiemannZetaZerosOnLine</code>（Statements）</td><td>与上逐字一致</td></tr>
+        <tr><td><code>LFunction_ne_zero_of_half_lt_re</code></td><td><code>DirichletLNonvanishingRightOfHalf</code></td><td>GRH·非零侧</td></tr>
+        <tr><td><code>LFunction_eq_zero_re</code></td><td><code>DirichletLZerosOnLine</code></td><td>GRH·临界带零点</td></tr>
+        <tr><td><code>LFunction_eq_zero_re_of_isPrimitive</code></td><td><code>PrimitiveDirichletLZerosOnLine</code></td><td>GRH·本原特征</td></tr>
+      </table>
+    </section>
+
+    <section>
       <h2>外部独立验证（引用）</h2>
       <p>Andrew Sutherland（MIT）报告：两个独立证明检查器 <strong>nanoda</strong> 与 <strong>con-leche</strong> 接受完整导出证明；并用 con-leche 对照独立陈述检查了全部五个终定理。</p>
       <p style="font-size:14px;color:var(--ink-soft)">详见 <a href="https://math.mit.edu/~drew/grh/">math.mit.edu/~drew/grh</a></p>
