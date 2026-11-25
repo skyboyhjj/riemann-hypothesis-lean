@@ -3,47 +3,42 @@ import Main
 
 open Lean Meta
 
-/-- 递归收集表达式（含展开 def/theorem/opaque 定义）中出现的所有常量名 -/
-partial def collectAllConsts (e : Expr) (seen : NameSet) : MetaM NameSet := do
+/-- 收集表达式里直接出现的常量名（不递归展开定义） -/
+partial def collectDirectConsts (e : Expr) (acc : Array Name) : Array Name :=
   match e with
-  | .const n _ =>
-      if seen.contains n then
-        return seen
-      else
-        let seen := seen.insert n
-        match (← getEnv).find? n with
-        | some (ConstantInfo.defnInfo d)   => collectAllConsts d.value seen
-        | some (ConstantInfo.thmInfo t)    => collectAllConsts t.value seen
-        | some (ConstantInfo.opaqueInfo o) => collectAllConsts o.value seen
-        | _ => return seen
-  | .app f a => collectAllConsts a (← collectAllConsts f seen)
-  | .lam _ _ b _ => collectAllConsts b seen
-  | .forallE _ _ b _ => collectAllConsts b seen
-  | .letE _ _ v b _ => collectAllConsts b (← collectAllConsts v seen)
-  | .mdata _ e => collectAllConsts e seen
-  | .proj _ _ e => collectAllConsts e seen
-  | _ => return seen
+  | .const n _ => acc.push n
+  | .app f a => collectDirectConsts a (collectDirectConsts f acc)
+  | .lam _ _ b _ => collectDirectConsts b acc
+  | .forallE _ _ b _ => collectDirectConsts b acc
+  | .letE _ _ v b _ => collectDirectConsts b (collectDirectConsts v acc)
+  | .mdata _ e => collectDirectConsts e acc
+  | .proj _ _ e => collectDirectConsts e acc
+  | _ => acc
 
 #eval! show MetaM Unit from do
   let ci ← getConstInfo `riemannHypothesis
-  let kind := match ci with
-    | .defnInfo _ => "defnInfo"
-    | .thmInfo _ => "thmInfo"
-    | .opaqueInfo _ => "opaqueInfo"
-    | .axiomInfo _ => "axiomInfo"
-    | .quotInfo _ => "quotInfo"
-    | .inductInfo _ => "inductInfo"
-    | .ctorInfo _ => "ctorInfo"
-    | .recInfo _ => "recInfo"
-  IO.println s!"riemannHypothesis 构造子: {kind}"
   let value ← match ci with
-    | .defnInfo v   => pure v.value
-    | .thmInfo v    => pure v.value
-    | .opaqueInfo v => pure v.value
-    | _ => throwError "riemannHypothesis 无证明项，无法做常量依赖判据"
-  IO.println "已取得证明项，开始递归收集常量..."
-  let consts ← collectAllConsts value ∅
-  let constsList := consts.toList
+    | .thmInfo v => pure v.value
+    | .defnInfo v => pure v.value
+    | _ => throwError "riemannHypothesis 无证明项"
+  IO.println "已取得证明项，开始 BFS 收集传递闭包常量..."
+  let mut visited : NameSet := {}
+  let mut queue : List Name := (collectDirectConsts value #[]).toList
+  let mut iter := 0
+  while !queue.isEmpty do
+    let n := queue.head!
+    queue := queue.tail!
+    if visited.contains n then continue
+    visited := visited.insert n
+    iter := iter + 1
+    if iter % 20000 == 0 then
+      IO.println s!"  ... 已处理 {iter} 个常量 (队列 {queue.length})"
+    match (← getEnv).find? n with
+    | some (ConstantInfo.defnInfo v) => queue := (collectDirectConsts v.value #[]).toList ++ queue
+    | some (ConstantInfo.thmInfo v) => queue := (collectDirectConsts v.value #[]).toList ++ queue
+    | some (ConstantInfo.opaqueInfo v) => queue := (collectDirectConsts v.value #[]).toList ++ queue
+    | _ => pure ()
+  let constsList := visited.toList
   IO.println s!"证明项 riemannHypothesis 依赖常量总数: {constsList.length}"
   let anys := constsList.filter (fun n => n.toString.contains "anyGeometry")
   IO.println s!"其中含 'anyGeometry' 的常量数: {anys.length}"
