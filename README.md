@@ -1,5 +1,7 @@
 # Riemann Hypothesis in Lean — by Levent Alpöge (with Claude)
 
+> **本 fork 的第三方验证站点（RH / VERIFY）**：<https://skyboyhjj.github.io/riemann-hypothesis-lean/> —— 独立复现 · 双机交叉 · 结构测绘 · 产物下载。源码见 `custom` 分支的 `verification/` 目录与 `gh-pages` 分支。
+
 > **The proof in this repository is the work of [Levent Alpöge](https://alpo.ge/).**
 > On 2026-11-20 he announced that, working with Claude, he had found a proof of the Riemann Hypothesis that extends to the Generalized Riemann Hypothesis (for Dirichlet L-functions), and that the argument is fully formalized in Lean without assumptions.
 > All credit belongs to Levent Alpöge (and Claude). This repository is an unmodified mirror of the Lean code he published, put on GitHub so that people and agents can browse, clone and check it.
@@ -10,7 +12,7 @@
 - Original download: https://alpo.ge/lean.tar.gz.part01 … https://alpo.ge/lean.tar.gz.part14
 - Merged archive in this repo's [Releases](https://github.com/CocoSgt/riemann-hypothesis-lean/releases/tag/v2026-11-20)
 
-**Status.** The mirror was created on 2026-11-20. Since then, Andrew Sutherland's report and the community verification statements have been published, and an independent build and review are now in progress on this fork (see the `verification/` directory and the `gh-pages` branch). Treat the proof as claimed until it has been compiled and checked.
+**Status.** The mirror was created on 2026-11-20. Since then, Andrew Sutherland's report and the community verification statements have been published, and an independent build and review are now in progress on this fork (see the [verification site](https://skyboyhjj.github.io/riemann-hypothesis-lean/), the `verification/` directory and the `gh-pages` branch). Treat the proof as claimed until it has been compiled and checked.
 
 ---
 
