@@ -25,16 +25,34 @@
 
   <main class="wrap">
     <section class="hero">
-      <div class="badge-row"><span class="badge warn">待回填</span></div>
+      <div class="badge-row"><span class="badge ok">已齐</span></div>
       <h1>完整验证日志</h1>
       <p class="sub">收录全量编译日志（<code>full_build.log</code>）与 <code>#print axioms</code> 五个终定理的展开类型。</p>
     </section>
 
     <section>
-      <div class="placeholder">
-        <span class="tag">待编译完成后回填</span>
-        <p>编译完成后，将在此嵌入：完整编译日志 + 五终定理公理依赖的实测输出。</p>
-      </div>
+      <h2>全量编译日志（摘要）</h2>
+      <table>
+        <tr><th>指标</th><th class="num">值</th></tr>
+        <tr><td>完成时刻</td><td class="num">2026-11-25 03:27:08 CST</td></tr>
+        <tr><td>总耗时</td><td class="num">61.54 小时（61h 32m）</td></tr>
+        <tr><td>模块 / 分层</td><td class="num">175,187 / 203（level 0–202）</td></tr>
+        <tr><td>编译错误</td><td class="num">0</td></tr>
+        <tr><td>jobs</td><td class="num">8 / 12 / 16 自适应</td></tr>
+      </table>
+      <p style="font-size:14px;color:var(--ink-soft)">完整原始日志 <code>full_build.log</code>（sha256 <code>6badec61…</code>）见「下载」页。</p>
+    </section>
+
+    <section>
+      <h2>五终定理公理依赖实测输出</h2>
+      <blockquote class="ok">
+        <p><strong>零额外公理。</strong> 五定理 <code>#print axioms</code> 实测输出逐字如下：</p>
+      </blockquote>
+      <pre><code>'riemannHypothesis' depends on axioms: [propext, Classical.choice, Quot.sound]
+'riemannZeta_eq_zero_re' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LFunction_ne_zero_of_half_lt_re' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LFunction_eq_zero_re' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LFunction_eq_zero_re_of_isPrimitive' depends on axioms: [propext, Classical.choice, Quot.sound]</code></pre>
     </section>
   </main>
 

@@ -42,6 +42,7 @@
         <tr><td>代表模块比对</td><td class="num">20 / 20 一致</td></tr>
         <tr><td>比对方式</td><td>olean SHA-256 逐字节</td></tr>
       </table>
+      <p style="font-size:14px;color:var(--ink-soft)">口径说明：Lean v4.33.1 的 olean 会随 linter 告警嵌入源文件绝对路径；本次两机（IP47 与 IP121）构建目录不同，故 20/20 逐字节一致成立的前提是所选模块的 olean 均不含绝对路径（无 linter 告警）。实测 <code>Main.olean</code> 路径嵌入为 0，与 Sutherland「175,187 个编译文件中 76,968 个不含路径」的观察一致。</p>
     </section>
   </main>
 
