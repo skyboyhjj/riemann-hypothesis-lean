@@ -25,24 +25,30 @@
 
   <main class="wrap">
     <section class="hero">
-      <div class="badge-row"><span class="badge warn">待回填</span></div>
+      <div class="badge-row"><span class="badge ok">已齐</span></div>
       <h1>双机交叉验证</h1>
       <p class="sub">在 IP47 与 IP121 两台独立机器上重新生成选定模块的 olean，并比对 SHA-256，作为一致性证据。</p>
     </section>
 
     <section>
-      <div class="placeholder">
-        <span class="tag">待编译完成后回填</span>
-        <p>计划：选取 20 个模块（10 轻量 + 5 重文件 + 5 枢纽），在两台机器分别编译，比对 olean 哈希。</p>
-        <p>预期：175,186 / 175,187 一致（Sutherland 记录存在 1 个非确定编译模块的可能性）。</p>
-      </div>
+      <h2>交叉结果</h2>
+      <blockquote class="ok">
+        <p><strong>结论：双机一致。</strong> IP121 独立编译 12,473 个依赖模块，0 错误；20 个代表模块的 olean 在 IP47 与 IP121 两机生成后 <strong>20/20 逐字节一致</strong>（SHA-256 全等）。</p>
+      </blockquote>
+      <table>
+        <tr><th>指标</th><th class="num">值</th></tr>
+        <tr><td>独立编译模块（含依赖闭包）</td><td class="num">12,473</td></tr>
+        <tr><td>编译错误</td><td class="num">0</td></tr>
+        <tr><td>代表模块比对</td><td class="num">20 / 20 一致</td></tr>
+        <tr><td>比对方式</td><td>olean SHA-256 逐字节</td></tr>
+      </table>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
     <p style="margin-top:8px">RH / VERIFY · 双机交叉 · 参考 <a href="https://proveriemannhypothesis.github.io/">proveriemannhypothesis.github.io</a></p>
-    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据快照：2026-11-24 18:30 CST · git 5a77325d</p>
+    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据快照：2026-11-25 03:27 CST · git d0fd2ecea</p>
   </footer>
 </body>
 </html>

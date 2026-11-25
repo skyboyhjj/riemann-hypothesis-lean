@@ -37,9 +37,9 @@
         <tr><td class="num">1</td><td>下载源码</td><td>固定源码目标（175,187 模块），保留原始源码</td><td>✅</td></tr>
         <tr><td class="num">2</td><td>检源</td><td>source-scan：扫描 sorry/admit/axiom/unsafe/native_decide/run_cmd</td><td>✅ 干净</td></tr>
         <tr><td class="num">3</td><td>准备 Lean</td><td>Lean 4.33.1 + mathlib（pinned rev）</td><td>✅</td></tr>
-        <tr><td class="num">4</td><td>编译</td><td>203 层逐层编译，受控并行（jobs=8–16）</td><td>🔄 87.26%</td></tr>
-        <tr><td class="num">5</td><td>审计证明</td><td><code>#print axioms</code> 公理检查 + 语句审计</td><td>⏳ 待编译完</td></tr>
-        <tr><td class="num">6</td><td>结果</td><td>axiom 三条定论 + 双机交叉比对</td><td>⏳ 待编译完</td></tr>
+        <tr><td class="num">4</td><td>编译</td><td>203 层逐层编译，受控并行（jobs=8–16）</td><td>✅ 100%</td></tr>
+        <tr><td class="num">5</td><td>审计证明</td><td><code>#print axioms</code> 公理检查 + 语句审计</td><td>✅ 公理三条 · 语句一致</td></tr>
+        <tr><td class="num">6</td><td>结果</td><td>axiom 三条定论 + 双机交叉比对</td><td>✅ 双机 20/20</td></tr>
       </table>
     </section>
 
@@ -80,7 +80,7 @@
   <footer class="site-footer">
     <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
     <p style="margin-top:8px">RH / VERIFY · 独立复现 · 参考 <a href="https://proveriemannhypothesis.github.io/">proveriemannhypothesis.github.io</a></p>
-    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据快照：2026-11-24 18:30 CST · git 5a77325d</p>
+    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据快照：2026-11-25 03:27 CST · git d0fd2ecea</p>
   </footer>
 </body>
 </html>
