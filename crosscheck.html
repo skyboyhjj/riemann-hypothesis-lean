@@ -33,16 +33,17 @@
     <section>
       <h2>交叉结果</h2>
       <blockquote class="ok">
-        <p><strong>结论：双机一致。</strong> IP121 独立编译 12,473 个依赖模块，0 错误；20 个代表模块的 olean 在 IP47 与 IP121 两机生成后 <strong>20/20 逐字节一致</strong>（SHA-256 全等）。</p>
+        <p><strong>结论：双机一致。</strong> IP121 独立编译 3,792 个依赖模块，0 错误；14 个代表模块的 olean 在 IP47 与 IP121 两机生成后 <strong>14/14 逐字节一致</strong>（SHA-256 全等）。</p>
       </blockquote>
       <table>
         <tr><th>指标</th><th class="num">值</th></tr>
-        <tr><td>独立编译模块（含依赖闭包）</td><td class="num">12,473</td></tr>
+        <tr><td>独立编译模块（含依赖闭包）</td><td class="num">3,792</td></tr>
         <tr><td>编译错误</td><td class="num">0</td></tr>
-        <tr><td>代表模块比对</td><td class="num">20 / 20 一致</td></tr>
+        <tr><td>代表模块比对</td><td class="num">14 / 14 一致</td></tr>
         <tr><td>比对方式</td><td>olean SHA-256 逐字节</td></tr>
       </table>
-      <p style="font-size:14px;color:var(--ink-soft)">口径说明：Lean v4.33.1 的 olean 会随 linter 告警嵌入源文件绝对路径；本次两机（IP47 与 IP121）构建目录不同，故 20/20 逐字节一致成立的前提是所选模块的 olean 均不含绝对路径（无 linter 告警）。实测 <code>Main.olean</code> 路径嵌入为 0，与 Sutherland「175,187 个编译文件中 76,968 个不含路径」的观察一致。</p>
+      <p style="font-size:14px;color:var(--ink-soft)">口径说明：Lean v4.33.1 的 olean 会随 linter 告警嵌入源文件绝对路径；本次两机（IP47 与 IP121）构建目录不同，故 14/14 逐字节一致成立的前提是所选模块的 olean 均不含绝对路径（无 linter 告警）。实测 <code>Main.olean</code> 路径嵌入为 0，与 Sutherland「175,187 个编译文件中 76,968 个不含路径」的观察一致。</p>
+      <p style="font-size:14px;color:var(--ink-soft)">完整比对落盘产物：<code>crosscheck_result.json</code>（14 模块双机 sha256 逐一列出，sha256 <code>f74d2b8b…aeb457</code>），见「下载」页。</p>
     </section>
   </main>
 
