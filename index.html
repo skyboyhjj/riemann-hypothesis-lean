@@ -77,7 +77,7 @@
           <tr>
             <td><strong>定义</strong></td>
             <td>证明内部的定义是否名副其实（如 <code>anyGeometry</code> 恒真，内核不检查）</td>
-            <td><strong>未做</strong>（需追证明项）</td>
+            <td>已定位 <code>anyGeometry</code> 恒真（<code>fun _ _ _ =&gt; True</code>）且在证明链上；真实几何 <code>IsGeoOf</code> 从不进链，几何侧被整体抽空。外部佐证（Nielsen 消融实验）：该字段可整体删除、真几何下高度估计失效</td>
           </tr>
           <tr>
             <td><strong>TCB</strong></td>
