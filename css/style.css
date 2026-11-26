@@ -166,6 +166,12 @@ li > ul, li > ol { margin: 4px 0; }
 }
 .timeline-item h4 { margin: 2px 0 4px; font-size: 17px; }
 .timeline-item p { margin: 4px 0; font-size: 15px; }
+.tag-new {
+  display: inline-block; margin-left: 8px; vertical-align: 2px;
+  font-size: 11px; letter-spacing: 1px; padding: 1px 8px;
+  color: var(--accent); border: 1px solid var(--accent); border-radius: 3px;
+  font-weight: 700; font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
+}
 
 /* ---------- 待回填占位 ---------- */
 .placeholder {
