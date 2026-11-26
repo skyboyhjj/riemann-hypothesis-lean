@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>业界动态 · RH / VERIFY</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand"><a href="index.html">RH <span class="sep">/</span> VERIFY<span class="en">黎曼猜想 · Lean 形式化独立复现</span></a></div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="reproduction.html">独立复现</a>
+        <a href="structure.html">结构消化</a>
+        <a href="machine.html">机器遥测</a>
+        <a href="results.html">结论</a>
+        <a href="crosscheck.html">双机交叉</a>
+        <a href="log.html">验证日志</a>
+        <a href="downloads.html">下载</a>
+        <a href="news.html" class="active">业界动态</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge-row"><span class="badge accent">业界动态</span><span class="badge warn">持续追踪</span></div>
+      <h1>业界动态</h1>
+      <p class="sub">
+        追踪黎曼猜想 Lean 证明的发布、独立验证与争议。本项目保持<strong>独立复现</strong>，
+        不替代、不重复外部验证，仅记录进展并与自身结论互相对照。
+      </p>
+    </section>
+
+    <section>
+      <h2>进展时间线（2026-11-20 起）</h2>
+      <blockquote class="ok">
+        <p><strong>一句话：</strong>Alpöge（Anthropic）于 11-20 发布 RH + GRH 的 Lean 4 形式化证明（175,187 文件 / ≈1740 万行），随后经历「独立验证通过」与「定义层质疑」两波交锋，至今<strong>无定论</strong>。</p>
+      </blockquote>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2026-11-20</div>
+          <h4>Alpöge 发布公告与代码</h4>
+          <p>发布 4 页公告 <a href="https://alpo.ge/remark.pdf">remark.pdf</a>，宣布与 Claude 合作证得黎曼猜想（RH）及 Dirichlet L 函数的广义黎曼猜想（GRH），公开 <strong>175,187 文件 / ≈17.4M 行</strong> Lean 4 代码，附注「散文草稿超 250,000 页」。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026-11-20 晚</div>
+          <h4>MIT 启动独立验证</h4>
+          <p>Andrew Sutherland（MIT）开启实时验证页 <a href="https://math.mit.edu/~drew/grh/">math.mit.edu/~drew/grh</a>，逐项记录编译与检查器重放结果。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026-11-21</div>
+          <h4>Nielsen 发布无效性质疑</h4>
+          <p>J. L. Nielsen（堪萨斯州 Center for Topological Physics）在 PhilArchive 发布《Invalidity of the Alpoge Proposed Proof》，直指定义层问题（见下节）。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026-11-22</div>
+          <h4>Lean FRO + Mathlib 联合声明</h4>
+          <p>确认代码通过严格编译与陈述比对（只依赖 3 条标准公理）。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026-11-23</div>
+          <h4>Alpöge 回应「玩笑」</h4>
+          <p>在 X 发「Stupid things I did」线程，承认「250,000+ pages was a joke」「lengthmaxxing 只为好笑」、代码「yoloing a lot」，但坚持形式证明本身成立。</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026-11-25</div>
+          <h4>Nielsen 正式论文</h4>
+          <p>在 PhilPapers 发布 NIEIOT-2.pdf，称证明为「fraudulent tautology（欺诈性同义反复）」。同日，学界出现技术中立分析反驳其「使证明作废」的结论。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>核心争议：anyGeometry</h2>
+      <p>争议集中在证明链上的几何谓词 <code>anyGeometry</code>。两方立场如下：</p>
+      <table>
+        <thead>
+          <tr><th>方</th><th>主张</th><th>核心论据</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Nielsen（质疑）</strong></td>
+            <td>证明是循环论证，缺乏实质数学内容</td>
+            <td>① <code>anyGeometry := fun _ _ _ => True</code> 恒真；② 退化模型 <code>geoDegenerate</code> / <code>mdlJunk</code>（零体积、空曲面、格映射送 0）；③ <code>setDiv</code> 用解析公式 <code>hExpl6</code> 覆写高度字段，靠 <code>rfl</code> 闭合</td>
+          </tr>
+          <tr>
+            <td><strong>技术中立反驳</strong></td>
+            <td><code>anyGeometry</code> 是「死脂肪」，不使证明作废</td>
+            <td>定理 <code>riemannHypothesis : RiemannHypothesis</code> 零输入假设、零 <code>sorry</code>、零额外公理，无法从 <code>True</code> / <code>rfl</code> 变出；Nielsen 复现时被迫把 RH 作为输入假设传回</td>
+          </tr>
+        </tbody>
+      </table>
+      <blockquote class="warn">
+        <p><strong>与本项目读解的对照：</strong>本站此前已独立定位 <code>anyGeometry</code> 恒真且在证明链上、真实几何 <code>IsGeoOf</code> 从不进链（见「结构消化」与读解归档）。外部争论与本站发现<strong>一致</strong>；分歧只在「是否致命」——见下「对本项目结论的影响」。</p>
+      </blockquote>
+    </section>
+
+    <section>
+      <h2>外部独立验证进展</h2>
+      <p>Lean FRO / Mathlib 联合声明 + Sutherland 验证页确认的客观事实：</p>
+      <table>
+        <thead>
+          <tr><th>检查项</th><th>结果</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>全量编译</td><td>175,187 模块在 Lean v4.33.1 / Mathlib v4.33.1 零错误</td></tr>
+          <tr><td>沙盒复现</td><td>断网沙盒 <code>lake build</code> 复现 61.57 GB 导出，字节一致</td></tr>
+          <tr><td>公理依赖</td><td>仅 <code>propext</code> / <code>Classical.choice</code> / <code>Quot.sound</code></td></tr>
+          <tr><td>陈述匹配</td><td><code>comparator</code> + <code>con-leche/con-ron --compare</code> 确认所证即 Mathlib 的 <code>RiemannHypothesis</code></td></tr>
+          <tr><td>检查器重放</td><td><code>nanoda</code>（Rust，80 线程 ≈28 分）、<code>con-leche</code>（Lean，64 线程 ≈3 分）、<code>con-ron</code>（Rust，64 线程 ≈7 分）全部通过</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:14px;color:var(--ink-soft)">
+        与本站结论对照：本站复现（0 错误、仅 3 公理、所证即 RH、<code>leanchecker</code> 30/30、双机交叉 14/14）与上述结果逐项吻合。
+      </p>
+    </section>
+
+    <section>
+      <h2>Lean 生态动态</h2>
+      <h3>版本</h3>
+      <ul>
+        <li>最新 <a href="https://lean-lang.org/doc/reference/latest/releases/">Lean 4.37.0-rc1（2026-11-18）</a>；本证明锁定 <code>v4.33.1</code>（2026-08-21）。</li>
+        <li>Mathlib 已有下游模块因 4.37.0-rc1 的 <code>Set</code>/<code>Finset</code> 简化 commit 而构建失败——升级需谨慎。</li>
+      </ul>
+      <h3>内核漏洞危机（2026-07，关键背景）</h3>
+      <blockquote class="warn">
+        <p>研究者 Ramana Kumar 借 AI 发布「考拉兹猜想证伪」（无 <code>sorry</code>、无额外公理），本质是一次漏洞报告，三天内被精简成直接证明 <code>False</code>。漏洞在 Lean 内核处理<strong>嵌套归纳类型</strong>，当时连官方内核 + 一周前的 <code>nanoda</code> + <code>lean4lean</code> 一起骗过。随后 7–8 月 AI 对抗测试又挖出多起（含溢出引用计数、触发 GMP 旧版本 bug）。</p>
+      </blockquote>
+      <p style="font-size:14px;color:var(--ink-soft)">这解释了为何本次 RH 证明被以「多内核交叉重放 + 断网沙盒复现」的最高规格防御性核验。</p>
+    </section>
+
+    <section>
+      <h2>对本项目结论的影响</h2>
+      <p>本项目读解原先停在「<strong>倾向 (B)</strong>：<code>anyGeometry</code> 掏空了几何实现一环，需数学专家裁决」。最新业界动态把天平从 (B) 拉向 (A)：</p>
+      <ul>
+        <li><strong>反方技术论据更根本</strong>：证明零假设闭合 → 若几何层承载必要步骤，<code>True</code> 无法填补 → 几何层从头不在必要路径上 → <code>anyGeometry</code> 是「死脂肪」，非「被掏空的关键环」。</li>
+        <li><strong>但这不等于证明已确证</strong>。审查焦点随之前移至三处：① 解析/矩阵不等式核心（<code>DivInputsR</code>/<code>WordFacts</code>/<code>LinkGLOBAL</code>，17M 行里真正「干活」的部分）；② Mathlib 的 <code>RiemannHypothesis</code> 定义链；③ 内核/检查器 soundness。</li>
+      </ul>
+      <blockquote>
+        <p><strong>本站立场：</strong>继续独立复现，不因「多检查器通过」而停止、也不因「anyGeometry 恒真」而否定——真正待啃的是<strong>解析核心的数学正确性</strong>与<strong>定义层是否名副其实</strong>，这正是本项目「定义层验证」的立足点。</p>
+      </blockquote>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
+    <p style="margin-top:8px">RH / VERIFY · 业界动态 · 参考 <a href="https://math.mit.edu/~drew/grh/">Sutherland 验证页</a> 与 <a href="https://github.com/CocoSgt/riemann-hypothesis-lean">上游镜像</a></p>
+    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据快照：2026-11-26 · 动态持续追踪中</p>
+  </footer>
+</body>
+</html>
