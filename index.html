@@ -72,7 +72,7 @@
           <tr>
             <td><strong>内核</strong></td>
             <td>Lean 4 内核逐项检查每个证明项的类型正确性</td>
-            <td>编译 0 error</td>
+            <td>编译 0 error；leanchecker 定向内核重放 30/30 通过（排除 metaprogram environment hacking）</td>
           </tr>
           <tr>
             <td><strong>定义</strong></td>
@@ -86,7 +86,7 @@
           </tr>
         </tbody>
       </table>
-      <p style="font-size:14px;color:var(--ink-soft)">与 Sutherland（MIT）的分工：本站<strong>不重复</strong>其 nanoda / con-leche 的内核重放与独立检查器工作；本站补的是<strong>依赖结构测绘</strong>与<strong>定义层（如 anyGeometry）</strong>两个缺口。</p>
+      <p style="font-size:14px;color:var(--ink-soft)">与 Sutherland（MIT）的分工：其 nanoda / con-leche 做的是<strong>独立内核</strong>重放（TCB 层）；本站补的是<strong>依赖结构测绘</strong>、<strong>定义层（如 anyGeometry）</strong>，以及 <code>leanchecker</code><strong>同内核</strong>定向重放（排除 elaborator/metaprogram 的 environment hacking，30/30 通过）三个角度。详见「双机交叉」页。</p>
     </section>
 
     <section>
