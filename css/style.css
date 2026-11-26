@@ -168,8 +168,8 @@ li > ul, li > ol { margin: 4px 0; }
 .timeline-item p { margin: 4px 0; font-size: 15px; }
 .tag-new {
   display: inline-block; margin-left: 8px; vertical-align: 2px;
-  font-size: 11px; letter-spacing: 1px; padding: 1px 8px;
-  color: var(--accent); border: 1px solid var(--accent); border-radius: 3px;
+  font-size: 11px; letter-spacing: 1px; padding: 2px 8px;
+  color: #fff; background: var(--accent); border-radius: 4px;
   font-weight: 700; font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
 }
 
