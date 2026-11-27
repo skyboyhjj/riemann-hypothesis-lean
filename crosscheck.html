@@ -62,7 +62,7 @@
     <section>
       <h2>leanchecker 内核重放</h2>
       <blockquote class="ok">
-        <p><strong>结论：30/30 通过。</strong> 对全部自定义 <code>macro</code> / <code>elab</code> / <code>syntax</code> 定义所在模块 + 唯一 <code>addDecl</code> 模块 <code>CutCptCopy</code>，用 Lean 4 内置 leanchecker 逐一重放 olean，未发现 metaprogram 构造不一致 Environment（environment hacking）的痕迹。</p>
+        <p><strong>结论：30/30 通过。</strong> 对唯一 <code>addDecl</code> 模块 <code>CutCptCopy</code> + 含自定义宏定义文件中的 30 个（实测宏定义文件共 67 个），用 Lean 4 内置 leanchecker 逐一重放 olean，未发现 metaprogram 构造不一致 Environment（environment hacking）的痕迹。</p>
       </blockquote>
       <table>
         <tr><th>指标</th><th class="num">值</th></tr>
@@ -71,7 +71,7 @@
         <tr><td>失败 / 缺 olean</td><td class="num">0 / 0</td></tr>
         <tr><td>工具</td><td>leanchecker（Lean 4.33.1 内置）</td></tr>
       </table>
-      <p style="font-size:14px;color:var(--ink-soft)">口径说明：leanchecker 是<strong>同内核</strong>重放（重放单模块自身声明、trust 导入），检测 metaprogram 绕过内核构造非法 Environment；它<strong>不</strong>验证内核本身正确（TCB 层，属 Sutherland nanoda / con-leche 分工）。定向重放的充分性由 <code>src/</code> 全量扫描 <strong>0 <code>unsafe</code></strong> 支撑——无 unsafe 则 metaprogram 无法绕过内核，environment hacking 只可能藏于自定义宏展开与显式 <code>addDecl</code>，恰为本次 30 模块所覆盖。</p>
+      <p style="font-size:14px;color:var(--ink-soft)">口径说明：leanchecker 是<strong>同内核</strong>重放（重放单模块自身声明、trust 导入），检测 metaprogram 绕过内核构造非法 Environment；它<strong>不</strong>验证内核本身正确（TCB 层，属 Sutherland nanoda / con-leche 分工）。定向重放的充分性由 <code>src/</code> 全量扫描 <strong>0 <code>unsafe</code></strong> 支撑——无 unsafe 则 metaprogram 无法绕过内核，environment hacking 只可能藏于自定义宏展开与显式 <code>addDecl</code>；本次 30 模块覆盖唯一 <code>addDecl</code> + 宏定义文件 67 个中的 30 个（其余 37 个未重放）。</p>
       <p style="font-size:14px;color:var(--ink-soft)">完整清单与结果见仓库 <code>verification/04-scripts/leanchecker_targeted_replay_results.md</code>。</p>
     </section>
   </main>

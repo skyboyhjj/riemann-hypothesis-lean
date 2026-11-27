@@ -45,7 +45,7 @@
       <pre><code><span class="code-k">def</span> RiemannHypothesis : Prop :=
   ∀ (s : ℂ), riemannZeta s = 0 →
   (¬∃ n : ℕ, s = -2 * ((n : ℂ) + 1)) → s ≠ 1 → s.re = 1 / 2</code></pre>
-      <p style="font-size:14px;color:var(--ink-soft)">注：此「可读版」照抄项目 <code>Statements.lean</code> 的排除条件（负偶数 <code>-2(n+1)</code>，含 0）；因 ζ 在负奇整数处非零，故等价于排除全部非正整数。</p>
+      <p style="font-size:14px;color:var(--ink-soft)">注：此「可读版」照抄项目 <code>Statements.lean</code> 的排除条件（负偶数 <code>-2(n+1)</code>，即 -2,-4,-6,…，最小 -2、不含 0）；又因 ζ(0) = -1/2 ≠ 0 且 ζ 在负奇整数处非零，故等价于排除全部非正整数。</p>
       <blockquote>
         <p><strong>中文原文：</strong>是。这份 Lean 项目的主定理断言，黎曼 ζ 函数的每个非平凡零点的实部都等于 1/2，这正是经典黎曼猜想。完整的五个终定理类型将在编译完成后以 <code>#print axioms</code> 的展开形式收录于「结论」页。</p>
       </blockquote>
@@ -107,7 +107,7 @@
           <div class="stat-label">循环依赖</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">99.99%</div>
+          <div class="stat-value">99.76%</div>
           <div class="stat-label">Main 传递闭包占比</div>
         </div>
         <div class="stat-card">
