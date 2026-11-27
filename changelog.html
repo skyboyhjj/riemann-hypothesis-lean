@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>修订记录 · RH / VERIFY</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand"><a href="index.html">RH <span class="sep">/</span> VERIFY<span class="en">黎曼猜想 · Lean 形式化独立复现</span></a></div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="reproduction.html">独立复现</a>
+        <a href="structure.html">结构消化</a>
+        <a href="machine.html">机器遥测</a>
+        <a href="results.html">结论</a>
+        <a href="crosscheck.html">双机交叉</a>
+        <a href="log.html">验证日志</a>
+        <a href="downloads.html">下载</a>
+        <a href="news.html">业界动态</a>
+        <a href="changelog.html" class="active">修订记录</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge-row"><span class="badge accent">数据台账</span><span class="badge ok">可追溯</span></div>
+      <h1>修订记录</h1>
+      <p class="sub">本站所有数据修改的台账。每笔改动登记「旧值 → 新值 · 原因 · 证据」，读者可沿 <code>页面数字 → 本页条目 → verification 文档 → 复算脚本</code> 逐级核对。</p>
+    </section>
+
+    <section>
+      <h2>当前数据版本</h2>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-value">v3</div><div class="stat-label">数据版本</div></div>
+        <div class="stat-card"><div class="stat-value">2026-11-27</div><div class="stat-label">最近修订</div></div>
+        <div class="stat-card"><div class="stat-value">全文口径</div><div class="stat-label">读文件范围</div></div>
+      </div>
+      <blockquote class="warn">
+        <p><strong>口径三要素（复核前必读）：</strong>① 读全文（非 16KB 截断）；② 边数用「去重」、fan-in 用「不去重」；③ import 解析按空白 <code>split()</code>，兼容 <code>₂</code> 等 Unicode 下标模块。</p>
+      </blockquote>
+      <p style="color:var(--ink-soft);font-size:14px">正确值锚点：闭包 <strong>175,186 / 175,187</strong>（99.9994%，仅 Main 在外）· 依赖边 <strong>753,261</strong>（去重）· level0 <strong>5,927</strong>。</p>
+    </section>
+
+    <section>
+      <h2>修订台账</h2>
+
+      <h3>第三轮 · 全文口径重生成 + 产物重打包（2026-11-27）</h3>
+      <p style="font-size:13px;color:var(--ink-soft)">证据：<a href="https://github.com/skyboyhjj/riemann-hypothesis-lean/commit/c15f15f4b">c15f15f4b</a> · 复盘文档 <code>verification/09-knowhow/复盘_站点审计第三轮_边数Top5与产物重打包.md</code> · 复算脚本 <code>verification/04-scripts/gen_closure.py</code></p>
+      <table>
+        <tr><th>页面</th><th>指标</th><th>旧值</th><th>新值</th><th>原因</th></tr>
+        <tr><td>结构消化</td><td>src 内部依赖边</td><td class="num">752,647</td><td class="num">753,261</td><td>16KB 截断 → 全文去重口径</td></tr>
+        <tr><td>结构消化</td><td>fan-in 第 1 名</td><td class="num">3085</td><td class="num">3088</td><td>去重 → 不去重口径</td></tr>
+        <tr><td>结构消化</td><td>fan-in 第 4 名</td><td><code>…UniformisationConclusion</code>（2387）</td><td><code>…AutomorphicForms₂.ExistsNormLeHeightPow</code>（2460）</td><td>₂ 模块漏算修正</td></tr>
+        <tr><td>结构消化</td><td>fan-in 第 5 名</td><td><code>…UnifUniqSt</code>（2284）</td><td><code>…UniformisationConclusion</code>（2390）</td><td>₂ 模块漏算修正</td></tr>
+        <tr><td>结构消化</td><td>重文件最高 fan-in</td><td class="num">187</td><td class="num">188</td><td>不去重多计 1 条重复 import</td></tr>
+        <tr><td>下载</td><td>4 条 structure sha256</td><td>旧值</td><td>新值</td><td>产物重生成</td></tr>
+        <tr><td>下载 / Release</td><td>整包 sha256</td><td><code>30c30782…</code></td><td><code>9439cd65…</code></td><td>zip 重打包</td></tr>
+      </table>
+
+      <h3>第二轮 · 二审反转，回滚第一轮误改（2026-11-27）</h3>
+      <p style="font-size:13px;color:var(--ink-soft)">证据：<a href="https://github.com/skyboyhjj/riemann-hypothesis-lean/commit/df9e19364">df9e19364</a> · 复盘文档 <code>verification/09-knowhow/复盘_站点审计二审反转与₂盲区.md</code></p>
+      <table>
+        <tr><th>页面</th><th>指标</th><th>回滚前（误）</th><th>回滚后（对）</th><th>依据</th></tr>
+        <tr><td>结构消化</td><td>Main 传递闭包</td><td class="num">174,764</td><td class="num">175,186</td><td>页面对、产物错（旧脚本漏 ₂）</td></tr>
+        <tr><td>首页</td><td>闭包占比</td><td class="num">99.76%</td><td class="num">99.9994%</td><td>同上</td></tr>
+        <tr><td>结构消化</td><td>冗余澄清句</td><td>误删「没有冗余」</td><td>恢复原话</td><td>仅 Main 自身不在闭包内</td></tr>
+      </table>
+
+      <h3>第一轮 · 第三方读解审计，4 处成立（2026-11-27）</h3>
+      <p style="font-size:13px;color:var(--ink-soft)">证据：<a href="https://github.com/skyboyhjj/riemann-hypothesis-lean/commit/a240c9754">a240c9754</a> · 读解文档 <code>verification/01-readings/读解_站点审计闭环与₂盲区反转.md</code></p>
+      <table>
+        <tr><th>页面</th><th>指标</th><th>旧值</th><th>新值</th><th>依据</th></tr>
+        <tr><td>首页</td><td>负偶数零点</td><td>含 0</td><td>不含 0（最小 -2）</td><td>读解审计</td></tr>
+        <tr><td>双机交叉</td><td>leanchecker 覆盖范围</td><td>30（误作全部宏定义）</td><td>30/67</td><td>读解审计</td></tr>
+        <tr><td>结论</td><td>定义一致性</td><td>逐字一致</td><td>展开后同型</td><td>读解审计</td></tr>
+        <tr><td>业界动态</td><td>Nielsen 两篇</td><td>未标注同篇</td><td>标注同篇 NIEIOT-2</td><td>读解审计</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>证据链说明</h2>
+      <p>每笔数据改动都对应一篇 <code>verification/</code> 文档（读解 / 复盘），文档内记录了独立复算过程与判定依据；复算脚本在 <code>verification/04-scripts/</code>。三者以 git commit SHA 锚定，可随时回查。</p>
+      <ul>
+        <li>读解（一审/二审）：<code>verification/01-readings/读解_站点审计闭环与₂盲区反转.md</code></li>
+        <li>复盘（二审反转）：<code>verification/09-knowhow/复盘_站点审计二审反转与₂盲区.md</code></li>
+        <li>复盘（第三轮）：<code>verification/09-knowhow/复盘_站点审计第三轮_边数Top5与产物重打包.md</code></li>
+        <li>复算脚本：<code>verification/04-scripts/gen_closure.py</code></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
+    <p style="margin-top:8px">→ <a href="https://skyboyhjj.github.io/spec-oriented-development/">面向规约开发</a></p>
+    <p style="margin-top:8px">RH / VERIFY · 修订记录</p>
+    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据版本 v3 · 2026-11-27</p>
+  </footer>
+</body>
+</html>
