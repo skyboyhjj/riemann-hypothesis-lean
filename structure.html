@@ -32,19 +32,19 @@
     </section>
 
     <section>
-      <h2>核心发现：闭包 = 99.76%</h2>
+      <h2>核心发现：闭包 = 175,186 / 175,187</h2>
       <div class="stat-grid">
         <div class="stat-card">
-          <div class="stat-value">174,764</div>
+          <div class="stat-value">175,186</div>
           <div class="stat-label">Main 传递闭包模块数</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">99.76%</div>
+          <div class="stat-value">99.9994%</div>
           <div class="stat-label">占项目比例</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">423</div>
-          <div class="stat-label">模块不在 Main 传递闭包内</div>
+          <div class="stat-value">1</div>
+          <div class="stat-label">Main 自身（不在其传递闭包内）</div>
         </div>
         <div class="stat-card">
           <div class="stat-value">95 / 95</div>
@@ -52,7 +52,7 @@
         </div>
       </div>
       <blockquote class="warn">
-        <p><strong>重要事实澄清：</strong><code>Main</code> 依赖 99.76% 的模块（174,764 / 175,187）；未被依赖的 423 个模块（0.24%）多为辅助与文档性引理，构不成「砍掉大半只读核心」的捷径。消化必须靠结构测绘与骨架提取，而非范围裁剪。</p>
+        <p><strong>重要事实澄清：</strong><code>Main</code> 依赖项目的每一个模块（175,186 / 175,187，仅 <code>Main</code> 自身不在其传递闭包内），这份形式化<strong>没有冗余</strong>——不存在「砍掉大半只读核心」的捷径。消化必须靠结构测绘与骨架提取，而非范围裁剪。</p>
       </blockquote>
     </section>
 
