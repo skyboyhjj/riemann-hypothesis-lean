@@ -1,4 +1,4 @@
-# 读解：Sernau 精简版 anyGeometry 去留 与 (A)/(B) 定论
+# 读解：Sernau 精简版 anyGeometry 去留
 
 > 归档日期：2026-11-27 · 对应任务 P0+P1（验证 Sernau 精简版）· 第三方复现记录
 
@@ -8,8 +8,8 @@ Anthropic 的 Luke Sernau 等用 Claude 将 Alpöge 原始证明从 ≈1740 万�
 
 | 版本 | 行数 | 说明 |
 | :-- | --: | :-- |
-| `grh/` | ≈30 万行 | readable edition（可读版），从 `GUIDE.md` 开始 |
-| `grh-compact/` | ≈7.6 万行 | compact edition（紧凑版），同一五个定理 |
+| `grh/` | ≈47.7 万行（README 称 30 万） | readable edition（可读版），从 `GUIDE.md` 开始 |
+| `grh-compact/` | ≈11.3 万行（README 称 7.6 万，实为 Lib-only 口径） | compact edition（紧凑版），同一核心 + 四个推论 |
 
 仓库：`lsernau/grh-lean`；需 Lean v4.35.0 + Mathlib @ 56a00585；README 自述「仅通过机器检查、无人通读、无配套论文」。
 
@@ -39,14 +39,14 @@ Anthropic 的 Luke Sernau 等用 Claude 将 Alpöge 原始证明从 ≈1740 万�
 ## 4. 公理审计
 
 - Grep `^\s*(axiom|constant)\s`：**0 关键字**（18 行命中全是注释里 "constant term/functions" 数学术语）。
-- 主定理 5 个，README 自述只依赖 `propext` / `Classical.choice` / `Quot.sound`（编译确认待 P0）。
+- 主定理 5 个（实为「一个核心 `New.grh` + 四个标准转换」，见 Main.lean），README 自述只依赖 `propext` / `Classical.choice` / `Quot.sound`（编译确认待 P0）。
 
-## 5. 决定性结论：(A) 坐实，(B) 排除
+## 5. 结论：坐实的是「短版不依赖 anyGeometry」
 
-精简版删掉 `anyGeometry` 后，证明**仍闭合**（3 公理、机器检查通过）。若 `anyGeometry` 是 Langlands「自守 L = 几何 L」的必需桥梁 (B)，删掉它证明就无法闭合；既然闭合，则：
+精简版删掉 `anyGeometry` 后，证明**仍闭合**（3 公理、机器检查通过）。由此坐实的**是「短版不依赖 `anyGeometry`」**：
 
-- **坐实 (A)**：`anyGeometry` 是「死脂肪」（dead fat），不在证明的必要路径上。
-- **排除 (B)**：`anyGeometry` 没有「掏空关键几何一环」。
+- 短版字面 0 次 `anyGeometry`、0 处 `: Prop := True`，五个定理归一到 `New.grh`，不经过任何几何占位；
+- 但**不能反推「原版 `anyGeometry` 无害」**：短版用 other arguments 重写，可能以别的方式承担了同样的角色，且 `Lib` 285k 行未逐行审。
 
 ## 6. 精确修正（对之前读解的勘误）
 
@@ -54,7 +54,7 @@ Anthropic 的 Luke Sernau 等用 Claude 将 Alpöge 原始证明从 ≈1740 万�
 
 > **「成员判定的几何谓词 Γ 被抽空（死脂肪），而真实几何论证（theta 对应 / Shimura 簇 / 上同调 / Galois 表示）是证明核心且完整保留、从未缺失。」**
 
-即：anyGeometry 是冗余的占位参数，但证明的几何部分不靠它，而是靠真实的 Shimura/theta/cohomology 论证。这直接回应了之前「需数学专家裁决」的悬置判断——形式化源码本身给出了答案（删掉 anyGeometry 证明仍成立）。
+即：短版里 anyGeometry 是冗余的占位参数，但证明的几何部分不靠它，而是靠真实的 Shimura/theta/cohomology 论证。这只回答了「短版是否需要 anyGeometry」；对「原版 anyGeometry 是否无害」，仍需走 GUIDE 的人工路径（而非 grep）。
 
 ## 7. 仍待 P0 的边界
 

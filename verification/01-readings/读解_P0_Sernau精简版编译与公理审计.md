@@ -4,7 +4,7 @@
 
 ## 目标
 
-把 Sernau 精简版（`grh-compact`，约 7.6 万行）的「可编译 + 仅 3 公理」从 README 自述，升级为本项目独立编译坐实。与 P1（anyGeometry 去留）合起来，构成对精简版的完整闭环验证。
+把 Sernau 精简版（`grh-compact`，约 11 万行）的「可编译 + 仅 3 公理」从 README 自述，升级为本项目独立编译坐实。与 P1（anyGeometry 去留）合起来，构成对精简版的完整闭环验证。
 
 ## 环境（IP47 · 代号）
 
@@ -45,16 +45,16 @@ Build completed successfully (9843 jobs).
 | `LFunction_eq_zero_re` | propext, Classical.choice, Quot.sound |
 | `LFunction_eq_zero_re_of_isPrimitive` | propext, Classical.choice, Quot.sound |
 
-五定理全部仅依赖 3 条标准公理，与上游 175,187 模块版一致。
+五个定理（实为一个核心 `New.grh` + 四个标准转换）全部仅依赖 3 条标准公理，与上游 175,187 模块版一致。
 
 ## 结论：P0 + P1 闭环
 
 1. **可编译**（P0）：9843 jobs 成功，0 错误。
 2. **公理干净**（P0）：5 定理仅 3 条标准公理。
-3. **anyGeometry 已删除**（P1）：几何谓词层 0 命中，证明仍闭合 → 坐实 (A)「死脂肪」。
+3. **anyGeometry 已删除**（P1）：几何谓词层 0 命中，证明仍闭合 → 坐实「短版不依赖 `anyGeometry`」。
 
-三者合起来：Sernau 精简版是上游证明的诚实重写，其「可编译 + 3 公理」从 README 自述升级为独立坐实；anyGeometry 的 (A) 定论获得编译级支撑。
+三者合起来：Sernau 精简版是上游证明的诚实重写，其「可编译 + 3 公理」从 README 自述升级为独立坐实；「短版不依赖 `anyGeometry`」获得编译级支撑。
 
 ## 信任链条定位
 
-P0 属「内核层」的交叉验证：对精简版（7.6 万行）独立跑一遍编译 + 公理审计，与上游（175,187 模块）的编译 + 3 公理结论互相印证。
+P0 属「内核层」的交叉验证：对精简版（约 11 万行）独立跑一遍编译 + 公理审计，与上游（175,187 模块）的编译 + 3 公理结论互相印证。
