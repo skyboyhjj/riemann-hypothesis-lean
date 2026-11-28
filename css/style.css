@@ -173,31 +173,90 @@ li > ul, li > ol { margin: 4px 0; }
   font-weight: 700; font-family: "SF Mono", "Cascadia Code", Consolas, monospace;
 }
 
-/* ---------- 探索路径导航（我的读解） ---------- */
-.path-nav {
-  display: flex; flex-wrap: wrap; align-items: stretch;
-  gap: 8px; margin: 20px 0;
-}
-.path-node {
-  flex: 1 1 150px; min-width: 140px;
+/* ---------- 探索路径地图（我的读解） ---------- */
+.path-legend { font-size: 14px; color: var(--ink-soft); margin: 0 0 4px; }
+
+.path-map { margin: 20px 0; }
+
+.path-row { display: flex; gap: 12px; margin: 0 0 16px; }
+
+.path-row-label {
+  flex: 0 0 54px;
+  display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; letter-spacing: 3px;
+  font-size: 13px; color: var(--ink-soft);
   border: 1px solid var(--line); border-radius: 4px;
-  padding: 14px 14px; background: var(--bg);
-  display: flex; flex-direction: column; gap: 4px;
-  border-bottom: none; text-align: left;
+  background: var(--bg-soft);
+}
+
+.path-track {
+  flex: 1; position: relative;
+  display: flex; gap: 18px;
+  padding: 22px 0;
+}
+.path-track::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%;
+  height: 2px; background: var(--line);
+}
+
+.path-node {
+  position: relative; z-index: 1;
+  flex: 1 1 0; min-width: 0;
+  border: 1px solid var(--line); border-radius: 4px;
+  background: var(--bg);
   transition: border-color .15s;
 }
 .path-node:hover { border-color: var(--accent); }
 .path-node.ok { border-top: 3px solid var(--ok); }
 .path-node.fail { border-top: 3px solid var(--accent); }
 .path-node.info { border-top: 3px solid var(--warn); }
-.path-idx { font-size: 12px; letter-spacing: 1px; color: var(--ink-soft); }
-.path-mark { font-size: 22px; line-height: 1; font-weight: 700; }
+
+.path-node > summary {
+  list-style: none; cursor: pointer;
+  padding: 12px 30px 12px 38px;
+  position: relative; display: block;
+}
+.path-node > summary::-webkit-details-marker { display: none; }
+
+.path-node .path-mark {
+  position: absolute; left: 12px; top: 13px;
+  font-size: 20px; line-height: 1; font-weight: 700;
+}
 .path-node.ok .path-mark { color: var(--ok); }
 .path-node.fail .path-mark { color: var(--accent); }
 .path-node.info .path-mark { color: var(--warn); }
-.path-title { font-size: 15px; font-weight: 700; color: var(--ink); }
-.path-sub { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
-.path-arrow { align-self: center; color: var(--ink-soft); font-size: 18px; padding: 0 2px; }
+
+.path-node .path-head { display: block; font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.4; }
+.path-node .path-idx { color: var(--ink-soft); font-weight: 400; }
+.path-node .path-sub { display: block; font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+
+.path-node > summary::after {
+  content: "▾"; position: absolute; right: 12px; top: 13px;
+  color: var(--ink-soft); font-size: 13px; font-weight: 700;
+  transition: transform .15s;
+}
+.path-node[open] > summary::after { transform: rotate(180deg); }
+
+.path-detail {
+  padding: 2px 16px 14px;
+  border-top: 1px dashed var(--line);
+  font-size: 14.5px;
+}
+.path-detail p { margin: 10px 0 6px; }
+.path-detail ul { margin: 4px 0 2px; padding-left: 22px; }
+
+/* 手机端：横轴降级为竖轴瀑布 */
+@media (max-width: 600px) {
+  .path-row { flex-direction: column; gap: 8px; }
+  .path-row-label {
+    flex: 0 0 auto; width: auto;
+    writing-mode: horizontal-tb; letter-spacing: 1px;
+    padding: 4px 12px; align-self: flex-start;
+  }
+  .path-track { flex-direction: column; gap: 12px; padding: 0 0 0 20px; }
+  .path-track::before { left: 6px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
+  .path-node { flex: 0 0 auto; }
+}
 
 /* 要点标记 */
 .marker { display: inline-block; font-size: 13px; font-weight: 700; margin-right: 2px; }
