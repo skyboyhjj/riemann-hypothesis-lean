@@ -43,6 +43,11 @@
       </blockquote>
       <div class="timeline">
         <div class="timeline-item">
+          <div class="timeline-date">2026-11-28</div>
+          <h4>本项目：IP121（14G）独立复验 lsernau 精简版通过 <span class="tag-new">新</span></h4>
+          <p>IP47 释放后，本项目在保留机 IP121（8vCPU/14G）装 Lean 4.35.0，独立复验 <code>lsernau/grh-lean</code> compact 版（794 模块）：<code>lake build</code> 成功（9843 jobs、0 错误），峰值内存仅 8.98GB（olean mmap 共享，无需升级内存），<code>PrintAxioms</code> 5 定理仍仅依赖 3 条标准公理。与 11-27 在 IP47（128G）的结论一致，坐实「14G 内存即可跑通精简版」。</p>
+        </div>
+        <div class="timeline-item">
           <div class="timeline-date">2026-11-27</div>
           <h4>本项目 P0+P1：anyGeometry 去留 + 独立编译坐实 <span class="tag-new">新</span></h4>
           <p>Sernau 精简版（<a href="https://github.com/lsernau/grh-lean">lsernau/grh-lean</a>，约 11 万行，README 称 7.6 万）删除 <code>anyGeometry</code>/<code>IsGeoOf</code> 后，本项目在 IP47 独立 <code>lake build</code>（9843 jobs、0 错误）+ <code>PrintAxioms</code>（5 定理仅 3 公理）→ 坐实「短版不依赖 <code>anyGeometry</code>」，真实几何论证（theta/Shimura/cohomology）完整保留。</p>
@@ -166,7 +171,7 @@
     <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
     <p style="margin-top:8px">→ <a href="https://skyboyhjj.github.io/spec-oriented-development/">面向规约开发</a></p>
     <p style="margin-top:8px">RH / VERIFY · 业界动态</p>
-    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据快照：2026-11-27 · 动态持续追踪中 · <a href="changelog.html">修订记录 →</a></p>
+    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据快照：2026-11-28 · 动态持续追踪中 · <a href="changelog.html">修订记录 →</a></p>
   </footer>
 </body>
 </html>
