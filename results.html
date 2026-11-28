@@ -92,6 +92,20 @@ def RiemannHypothesis : Prop :=
       <p style="font-size:14px;color:var(--ink-soft)">详见 <a href="https://math.mit.edu/~drew/grh/">math.mit.edu/~drew/grh</a></p>
       <p style="font-size:14px;color:var(--ink-soft)">分工：本站不重复上述内核重放与独立检查器工作，补的是依赖结构测绘与定义层两个角度。</p>
     </section>
+
+    <section>
+      <h2>第三方精简版独立复验（lsernau/grh-lean）</h2>
+      <blockquote class="ok">
+        <p><strong>交叉印证成立。</strong> Anthropic × Claude 的精简版 <code>lsernau/grh-lean</code>（compact 版，794 模块 / 约 11 万行）已在保留机 IP121（14G）独立复验通过。</p>
+      </blockquote>
+      <table>
+        <tr><th>验证项</th><th>结果</th></tr>
+        <tr><td>全量构建</td><td>✅ 成功（9843 jobs，峰值内存 8.98 GB，swap 0）</td></tr>
+        <tr><td>公理审计</td><td>✅ 5/5 仅依赖 <code>propext · Classical.choice · Quot.sound</code></td></tr>
+        <tr><td>与本项目关系</td><td>独立精简版（行列式方法路线），与本站全量复现形成交叉印证，非同一代码库</td></tr>
+      </table>
+      <p style="font-size:14px;color:var(--ink-soft)">详见 <a href="readings.html">我的读解</a> · <a href="https://github.com/skyboyhjj/riemann-hypothesis-lean/blob/custom/verification/09-knowhow/报告_lsernau验证_14G内存可行性.md" target="_blank">验证报告</a></p>
+    </section>
   </main>
 
   <footer class="site-footer">
