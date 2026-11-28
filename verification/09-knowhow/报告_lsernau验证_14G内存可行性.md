@@ -85,6 +85,8 @@
 
 6. **监控脚本要能自动收尾**：用 `while pgrep -f 'lake build'` 循环 + 记录 running peak，构建结束自动写 `BUILD_DONE peak_mem=...`，避免人工盯。
 
+7. **PowerShell 5 读 UTF-8 无 BOM 的 `.ps1` 会乱码**：含中文的脚本文件若为 UTF-8 无 BOM，PowerShell 5 会按系统 GBK 码页误读（中文变乱码）。补 UTF-8 BOM 后再运行，或直接改 HTML 文件（Edit 工具）避开脚本编码坑。
+
 ---
 
 ## 六、后续建议
