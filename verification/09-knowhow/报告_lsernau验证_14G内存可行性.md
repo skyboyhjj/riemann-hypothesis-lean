@@ -22,7 +22,7 @@
 | 1 | 释放 IP47 前归档 | A 类 42 文件 36.79MB + `full_build_stdout.log` gzip 625MB + 源码在 git |
 | 2 | IP121 新增 100G 独立盘 | `/dev/vdc` → ext4 → 挂载 `/data/lean`，写 fstab |
 | 3 | 装 Lean 4.35.0 | gh-proxy 下载 594MB tarball → `/opt/lean-4.35.0` → `elan toolchain link` |
-| 4 | clone lsernau/grh-lean | gh-proxy 代理，compact 版 **794 模块**（76K 行） |
+| 4 | clone lsernau/grh-lean | gh-proxy 代理，compact 版 **794 模块**（Lib 573 + New 219，约 11 万行；README 的 76K 为 Lib-only 口径） |
 | 5 | 拉 Mathlib cache | `lake exe cache get` → 9030 文件从 `cache.mathlib.org` |
 | 6 | 全量构建 + 内存监控 | `lake build`（默认 8 并发）+ 10s 采样监控 |
 
