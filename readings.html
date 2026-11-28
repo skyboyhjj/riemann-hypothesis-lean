@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的读解 · RH / VERIFY</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand"><a href="index.html">RH <span class="sep">/</span> VERIFY<span class="en">黎曼猜想 · Lean 形式化独立复现</span></a></div>
+      <nav class="site-nav">
+        <a href="index.html">首页</a>
+        <a href="news.html">最新动态</a>
+        <a href="readings.html" class="active">我的读解</a>
+        <a href="reproduction.html">独立复现</a>
+        <a href="structure.html">结构消化</a>
+        <a href="machine.html">机器遥测</a>
+        <a href="results.html">结论</a>
+        <a href="crosscheck.html">双机交叉</a>
+        <a href="log.html">验证日志</a>
+        <a href="downloads.html">下载</a>
+        <a href="changelog.html">修订记录</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge-row">
+        <span class="badge accent">我的读解</span>
+        <span class="badge">能验 vs 能懂</span>
+        <span class="badge ok">四线并流</span>
+      </div>
+      <h1>我的读解</h1>
+      <p class="sub">四个月（2026-09 → 2026-11）探索黎曼猜想的个人综述。与「独立复现」互补——<strong>复现答「验不验得过」，读解答「懂不懂得了」</strong>。</p>
+    </section>
+
+    <section>
+      <h2>探索路径</h2>
+      <p style="font-size:14px;color:var(--ink-soft)">四条线的路径导航：<span class="marker ok">✓</span> 成功 · <span class="marker fail">✗</span> 失败 / 此路不通 · <span class="marker info">◐</span> 外部 / 未定。点击节点进入详细读解。</p>
+      <div class="path-nav">
+        <a class="path-node ok" href="#line-1">
+          <span class="path-idx">线一</span>
+          <span class="path-mark">✓</span>
+          <span class="path-title">缺口定位</span>
+          <span class="path-sub">定位到「正性」</span>
+        </a>
+        <span class="path-arrow">→</span>
+        <a class="path-node fail" href="#line-2">
+          <span class="path-idx">线二</span>
+          <span class="path-mark">✗</span>
+          <span class="path-title">正性地形</span>
+          <span class="path-sub">12 排除 · 4 堵墙</span>
+        </a>
+        <span class="path-arrow">→</span>
+        <a class="path-node info" href="#line-3">
+          <span class="path-idx">线三</span>
+          <span class="path-mark">◐</span>
+          <span class="path-title">外部证明</span>
+          <span class="path-sub">形式化过关 · 理解为零</span>
+        </a>
+        <span class="path-arrow">→</span>
+        <a class="path-node ok" href="#line-4">
+          <span class="path-idx">线四</span>
+          <span class="path-mark">✓</span>
+          <span class="path-title">源码调查</span>
+          <span class="path-sub">anyGeometry 排除 · 短版验证</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="line-1">
+      <h2>线一 · 缺口定位 <span class="marker ok">✓ 成功</span></h2>
+      <p>起点是 Langlands 纲领的「连接」，终点落到 <code>(Spec ℤ, 零点结构)</code> 这一格。</p>
+      <ul>
+        <li><span class="marker ok">✓</span> 把「缺一个统一理论」压缩到「缺一格」——从一整片未知，缩小到一个可命名的一格。</li>
+        <li><span class="marker ok">✓</span> 结论：缺的是<strong>正性</strong>，不是「连接」。</li>
+        <li><span class="marker info">◐</span> 过程含三次自我更正（尤其 Connes 算子非自伴一条），边界感见 <code>综述 §2.3</code>。</li>
+      </ul>
+    </section>
+
+    <section id="line-2">
+      <h2>线二 · 正性地形 <span class="marker fail">✗ 走不通</span></h2>
+      <p>沿 Connes → Weil 正性 → Suzuki → de Branges 一路勘察，结果 12 条路逐一排除，撞上 4 堵墙。</p>
+      <ul>
+        <li><span class="marker fail">✗</span> 12 条路排除——每条都是「此路不通」，但排除本身是成果（证伪成功）。</li>
+        <li><span class="marker fail">✗</span> 4 堵墙，其中最硬的一刀：<strong>正性的无穷加法</strong>——非负性不被无穷加法保持（反例 <code>W_S = 1</code>、<code>W − W_S = −2</code>）。</li>
+        <li><span class="marker ok">✓</span> 但把缺口从「缺对象」压到「缺符号」，是这一步的真正产出。</li>
+      </ul>
+    </section>
+
+    <section id="line-3">
+      <h2>线三 · 外部证明 <span class="marker info">◐ 外部事件</span></h2>
+      <p>2026-11，外部证明撞进来（Alpöge × Claude，Lean 形式化 175,187 模块）。</p>
+      <ul>
+        <li><span class="marker ok">✓</span> 形式化层过关：全量编译 0 错误 + <code>#print axioms</code> 仅 3 条标准公理。</li>
+        <li><span class="marker fail">✗</span> 数学理解为零——能验，不能懂。</li>
+      </ul>
+    </section>
+
+    <section id="line-4">
+      <h2>线四 · 源码调查 <span class="marker ok">✓ 成功</span></h2>
+      <p>从「验」退回「查源码」，厘清信任边界。</p>
+      <ul>
+        <li><span class="marker ok">✓</span> <code>anyGeometry</code> 可疑但未证实（恒真占位、真几何不进链）——嫌疑排除，但定义层被抽空坐实。</li>
+        <li><span class="marker ok">✓</span> 短版 <code>grh-lean</code>（794 模块 / 约 11 万行）可安排验证：IP121（14G）构建通过 + 公理 5/5。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>核心论点：地图的价值翻转</h2>
+      <blockquote class="warn">
+        <p>两个月做的「此路不通」地图，在外部证明出现后，价值从<strong>「指路」</strong>翻转为<strong>「解释新路为什么必须在图外」</strong>——因为被排除的 12 条路全在<strong>正性族</strong>，而证明用的是<strong>行列式族</strong>。</p>
+      </blockquote>
+    </section>
+
+    <section>
+      <h2>关键问题：新路为什么不需要正性？</h2>
+      <p>这是四条线并流后浮现、且最值得回答的一个问题（<code>综述 §6.3 第 2 条</code>）。答案一句话：</p>
+      <blockquote class="ok">
+        <p><strong>行列式方法（Gram 行列式 / 协体积双侧夹逼）替代了正性</strong>。唯一用到的非负性是乘积公式 <code>height(1) ≥ 0</code> 与正型函数 <code>Θ ≥ 0</code>——都平凡且有限，绕开了「非负性不被无穷加法保持」的墙。</p>
+      </blockquote>
+      <p>论证骨架（<code>src/New/Main.lean</code> 注释原文）：</p>
+      <pre><code>h_main  ≤  (V + 2 δ) / rowDim  ≤  h_main − m·remainder</code></pre>
+      <p style="font-size:14px;color:var(--ink-soft)">上界（short + enough forms）与下界（integral forms are long）夹住同一个 Gram 行列式；夹逼的缝 = 素数误差项，最后经 Landau 引理翻译成零自由区。</p>
+    </section>
+
+    <section>
+      <h2>读解文档</h2>
+      <table>
+        <tr><th>文档</th><th>主题</th></tr>
+        <tr><td><code>读解_综述_探索全记录_四线并流</code></td><td>四条线的逻辑关系与交汇点</td></tr>
+        <tr><td><code>读解_新路为何不需正性_行列式方法替代机制</code></td><td>§6.3 第 2 条的深入分析（★严格 / ★半 / △ 分级）</td></tr>
+      </table>
+      <p style="font-size:14px;color:var(--ink-soft)">完整文本见仓库 <code>verification/01-readings/</code>。</p>
+    </section>
+
+    <section>
+      <h2>开放问题</h2>
+      <ul>
+        <li><strong>方向 A</strong>：读 <code>UpperBound</code> 上界链，对照线二的 Paley–Wiener 墙。</li>
+        <li><strong>方向 B</strong>：核 <code>New/</code> 是否隐式占位，可把「弱」级结论推一格。</li>
+        <li><strong>方向 C</strong>：正性替代机制的严格化（当前为 △ 推断）。</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
+    <p style="margin-top:8px">→ <a href="https://skyboyhjj.github.io/spec-oriented-development/">面向规约开发</a></p>
+    <p style="margin-top:8px">RH / VERIFY · 我的读解</p>
+    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据版本 v5 · 2026-11-28 · <a href="changelog.html">修订记录 →</a></p>
+  </footer>
+</body>
+</html>

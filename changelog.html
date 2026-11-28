@@ -13,6 +13,7 @@
       <nav class="site-nav">
         <a href="index.html">首页</a>
         <a href="news.html">最新动态</a>
+        <a href="readings.html">我的读解</a>
         <a href="reproduction.html">独立复现</a>
         <a href="structure.html">结构消化</a>
         <a href="machine.html">机器遥测</a>
@@ -35,7 +36,7 @@
     <section>
       <h2>当前数据版本</h2>
       <div class="stat-grid">
-        <div class="stat-card"><div class="stat-value">v4</div><div class="stat-label">数据版本</div></div>
+        <div class="stat-card"><div class="stat-value">v5</div><div class="stat-label">数据版本</div></div>
         <div class="stat-card"><div class="stat-value">2026-11-28</div><div class="stat-label">最近修订</div></div>
         <div class="stat-card"><div class="stat-value">全文口径</div><div class="stat-label">读文件范围</div></div>
       </div>
@@ -47,6 +48,15 @@
 
     <section>
       <h2>修订台账</h2>
+
+      <h3>第五轮 · 新增「我的读解」页 + 全站导航更新（2026-11-28）</h3>
+      <p style="font-size:13px;color:var(--ink-soft)">证据：<a href="https://github.com/skyboyhjj/riemann-hypothesis-lean/commit/b2e2c1441">b2e2c1441</a> · 读解文档 <code>verification/01-readings/读解_综述_探索全记录_四线并流.md</code> · <code>读解_新路为何不需正性_行列式方法替代机制.md</code></p>
+      <table>
+        <tr><th>页面</th><th>改动</th><th>说明</th></tr>
+        <tr><td>我的读解（新增）</td><td>新增 <code>readings.html</code></td><td>四条线路径导航 + 核心论点 + 关键问题</td></tr>
+        <tr><td>全站</td><td>导航插入「我的读解」第 3 位</td><td>首页 → 最新动态 → 我的读解 → …</td></tr>
+        <tr><td>全站</td><td>footer 数据版本 → v5</td><td>版本统一</td></tr>
+      </table>
 
       <h3>第四轮 · 服务器收敛 + lsernau 独立复验（2026-11-28）</h3>
       <p style="font-size:13px;color:var(--ink-soft)">证据：<a href="https://github.com/skyboyhjj/riemann-hypothesis-lean/commit/e1244e00b">e1244e00b</a> · 报告文档 <code>verification/09-knowhow/报告_lsernau验证_14G内存可行性.md</code></p>
@@ -99,6 +109,7 @@
         <li>复盘（二审反转）：<code>verification/09-knowhow/复盘_站点审计二审反转与₂盲区.md</code></li>
         <li>复盘（第三轮）：<code>verification/09-knowhow/复盘_站点审计第三轮_边数Top5与产物重打包.md</code></li>
         <li>报告（第四轮）：<code>verification/09-knowhow/报告_lsernau验证_14G内存可行性.md</code></li>
+        <li>读解（第五轮）：<code>verification/01-readings/读解_综述_探索全记录_四线并流.md</code>、<code>读解_新路为何不需正性_行列式方法替代机制.md</code></li>
         <li>复算脚本：<code>verification/04-scripts/gen_closure.py</code></li>
       </ul>
     </section>
@@ -108,7 +119,7 @@
     <div class="principle">先有规约，再写代码；验证对照规约，结论回指定理。</div>
     <p style="margin-top:8px">→ <a href="https://skyboyhjj.github.io/spec-oriented-development/">面向规约开发</a></p>
     <p style="margin-top:8px">RH / VERIFY · 修订记录</p>
-    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据版本 v4 · 2026-11-28</p>
+    <p style="margin-top:8px;font-size:12px;color:var(--ink-soft)">数据版本 v5 · 2026-11-28</p>
   </footer>
 </body>
 </html>
